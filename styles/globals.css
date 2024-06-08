@@ -70,5 +70,6 @@ body {
   width: -webkit-fill-available;
 }
 
-
-
+.columnCheckbox {
+  accent-color: #18181B;
+}

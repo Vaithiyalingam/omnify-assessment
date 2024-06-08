@@ -26,6 +26,8 @@ import people from "../../public/assets/people.svg";
 import check from "../../public/assets/check.svg";
 import chevronLeftBlack from "../../public/assets/chevron_left_black.svg";
 import chevronRightBlack from "../../public/assets/chevron_right_black.svg";
+import xCircle from "../../public/assets/x_circle.svg";
+import close from "../../public/assets/close.svg";
 
 export type TImages =
   | "columnsIcon"
@@ -55,7 +57,9 @@ export type TImages =
   | "people"
   | "check"
   | "chevronLeftBlack"
-  | "chevronRightBlack";
+  | "chevronRightBlack"
+  | "xCircle"
+  | "close";
 
 export type TNextImage = {
   src: string;
@@ -92,4 +96,6 @@ export const icons: Record<TImages, TNextImage> = {
   check,
   chevronLeftBlack,
   chevronRightBlack,
+  xCircle,
+  close,
 };

@@ -10,7 +10,7 @@ export const SidebarList: FC<ISidebarComponentsProps> = ({ isSidebarOpen }) => {
         return (
           <div
             className={`flex items-center ${
-              isSidebarOpen ? "" : "justify-center"
+              isSidebarOpen ? "" : "ml-3"
             } gap-2 px-2 py-1.5 hover:bg-white hover:border-b hover:border-b-blueGray100 rounded-md cursor-pointer transition-all duration-100 ease-in-out`}
             key={ind}
           >

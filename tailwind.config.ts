@@ -23,6 +23,11 @@ const config: Config = {
       colors
     },
   },
+  safelist: [
+    {
+        pattern: /grid-cols-./,
+    }
+  ],
   plugins: [],
 };
 export default config;

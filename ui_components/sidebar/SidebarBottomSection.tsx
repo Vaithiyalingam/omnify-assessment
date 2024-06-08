@@ -10,7 +10,7 @@ export const SidebarBottomSection: FC<ISidebarComponentsProps> = ({
     <div>
       <div
         className={`flex items-center ${
-          isSidebarOpen ? "justify-between" : "justify-center"
+          isSidebarOpen ? "justify-between" : "ml-4"
         } px-2 py-1.5 hover:bg-white hover:border-b hover:border-b-blueGray100 rounded-md cursor-pointer transition-all duration-100 ease-in-out`}
         role="button"
         tabIndex={0}
@@ -32,16 +32,14 @@ export const SidebarBottomSection: FC<ISidebarComponentsProps> = ({
       </div>
       <div
         className={`mt-4 flex items-center ${
-          isSidebarOpen ? "" : "justify-center"
+          isSidebarOpen ? "" : ""
         } bg-white rounded-md py-2.5 px-2 shadow-sm`}
         role="button"
         tabIndex={0}
         aria-label="Admin profile"
       >
         <div
-          className={`flex items-center gap-2 ${
-            isSidebarOpen ? "" : "justify-center"
-          }`}
+          className={`flex items-center gap-2 ${isSidebarOpen ? "" : "ml-3"}`}
         >
           <Image
             className="w-6 h-6 rounded-full"
@@ -65,9 +63,7 @@ export const SidebarBottomSection: FC<ISidebarComponentsProps> = ({
       </div>
       <div className="my-3.5 px-2">
         <div
-          className={`flex items-center gap-2 ${
-            isSidebarOpen ? "" : "justify-center"
-          }`}
+          className={`flex items-center gap-2 ${isSidebarOpen ? "" : "ml-4"}`}
           role="button"
           tabIndex={0}
           aria-label="Help center"

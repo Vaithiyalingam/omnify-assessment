@@ -27,6 +27,14 @@
     @apply font-bold font-poppins text-[16px] leading-5
 }
 
+.heading_medium{
+    @apply font-medium font-poppins text-[16px] leading-6
+}
+
+.button_medium{
+    @apply font-medium font-poppins text-[14px] leading-6
+}
+
 .sub_heading_medium{
     @apply font-medium font-poppins text-[14px] leading-5
 }
@@ -37,5 +45,10 @@
 
 .subtle{
     @apply font-normal font-poppins text-[14px] leading-5
+}
+
+
+.body_medium{
+    @apply font-medium font-poppins text-[14px] leading-6
 }
 

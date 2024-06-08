@@ -3,7 +3,7 @@ import { icons } from "../../utils/icons";
 
 export const WaitlistPaginationHandler = () => {
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex md:flex-row flex-col flex-wrap items-center justify-center md:justify-between">
       <div className="flex items-center gap-3  px-2 py-1">
         <p className="subtle text-slateGray">Displaying</p>
         <div className="flex items-center gap-1.5">

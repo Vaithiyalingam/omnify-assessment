@@ -1,10 +1,18 @@
 import Image from "next/image";
 import { icons } from "../../utils/icons";
-import { useState } from "react";
+import { FC, useState } from "react";
 import { ScheduledDate } from "./ScheduledDate";
 import { People } from "./People";
+import { Services } from "./Services";
+import { useApplyFilter } from "../../store/useApplyFilter";
 
-export const Filter = () => {
+export interface IFilter {
+  hideDialog: () => void;
+}
+
+export const Filter: FC<IFilter> = ({ hideDialog }) => {
+  const { handleApplyFilter, handleClearFilter, enableFilterBtn } =
+    useApplyFilter();
   enum FILTERS_ENUM {
     SCHEDULED_DATE = "SCHEDULED_DATE",
     PEOPLE = "PEOPLE",
@@ -25,14 +33,14 @@ export const Filter = () => {
       case FILTERS_ENUM.PEOPLE:
         return <People />;
       case FILTERS_ENUM.SERVICES:
-        return <ScheduledDate />;
+        return <Services />;
       default:
         return null;
     }
   };
 
   return (
-    <div className="w-[50vw] h-[50vh] grid grid-cols-8">
+    <div className="md:w-[50vw] md:h-[50vh] w-[80vw] h-[80vh] md:grid grid-cols-8">
       <div className="col-span-3 px-2 border-r border-blueGray100">
         <div
           className={`flex items-center gap-2 py-2 px-2 ${
@@ -68,6 +76,30 @@ export const Filter = () => {
         </div>
       </div>
       <div className="col-span-5 w-full">{renderFilterComponent()}</div>
+      <div className="absolute bottom-3 right-3 gap-3 flex items-center">
+        <button
+          className="text-darkBlue border px-3 py-1 border-blueGray100 rounded-md body_medium"
+          onClick={() => {
+            handleClearFilter();
+            hideDialog();
+          }}
+        >
+          {enableFilterBtn ? "Reset to Default" : "Close"}
+        </button>
+        <button
+          className={`text-white px-3 py-1 bg-darkBlue rounded-md body_medium ${
+            enableFilterBtn
+              ? "opacity-100 cursor-pointer"
+              : "opacity-50 cursor-not-allowed"
+          }`}
+          onClick={() => {
+            handleApplyFilter();
+            hideDialog();
+          }}
+        >
+          Apply
+        </button>
+      </div>
     </div>
   );
 };

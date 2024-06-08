@@ -166,7 +166,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
           value={format(selectedDate, "yyyy-MM-dd")}
           readOnly
           onClick={() => setShowDatePicker(!showDatePicker)}
-          className={` pl-7 subtle text-datePickerText ${
+          className={` pl-7 subtle text-datePickerText focus:outline-none ${
             showDatePicker ? "border-2" : "border"
           } border-slateGray p-2 rounded-lg datePickerInputWidth`}
         />

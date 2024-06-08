@@ -17,4 +17,5 @@ export const colors = {
   datePickerDateEn: "#09090B",
   datePickerShadow: "#1018280D",
   datePickerText: "#475569",
+  searchClientBorder: "#1018281A",
 };
