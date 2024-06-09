@@ -8,6 +8,7 @@ export const SidebarBottomSection: FC<ISidebarComponentsProps> = ({
 }) => {
   return (
     <div>
+      {/* Dashboard */}
       <div
         className={`flex items-center ${
           isSidebarOpen ? "justify-between" : "ml-4"
@@ -30,6 +31,8 @@ export const SidebarBottomSection: FC<ISidebarComponentsProps> = ({
         </div>
         {isSidebarOpen && <Image src={icons.link} alt="Link icon" />}
       </div>
+
+      {/* Admin profile */}
       <div
         className={`mt-4 flex items-center ${
           isSidebarOpen ? "" : ""
@@ -61,6 +64,8 @@ export const SidebarBottomSection: FC<ISidebarComponentsProps> = ({
           <Image src={icons.chevronDown} alt="Chevron down icon" />
         )}
       </div>
+
+      {/* Help center */}
       <div className="my-3.5 px-2">
         <div
           className={`flex items-center gap-2 ${isSidebarOpen ? "" : "ml-4"}`}

@@ -13,19 +13,24 @@ export interface IFilter {
 export const Filter: FC<IFilter> = ({ hideDialog }) => {
   const { handleApplyFilter, handleClearFilter, enableFilterBtn } =
     useApplyFilter();
+
+  // Enum for filter types
   enum FILTERS_ENUM {
     SCHEDULED_DATE = "SCHEDULED_DATE",
     PEOPLE = "PEOPLE",
     SERVICES = "SERVICES",
   }
-  const [selectedFilter, setSelectedFilter] = useState(
+
+  const [selectedFilter, setSelectedFilter] = useState<FILTERS_ENUM>(
     FILTERS_ENUM.SCHEDULED_DATE
   );
 
+  // Function to handle selection of filters
   const handleSelectFilter = (filter: FILTERS_ENUM) => {
-    setSelectedFilter(FILTERS_ENUM[filter]);
+    setSelectedFilter(filter);
   };
 
+  // Function to render the selected filter component
   const renderFilterComponent = () => {
     switch (selectedFilter) {
       case FILTERS_ENUM.SCHEDULED_DATE:
@@ -51,7 +56,7 @@ export const Filter: FC<IFilter> = ({ hideDialog }) => {
           onClick={() => handleSelectFilter(FILTERS_ENUM.SCHEDULED_DATE)}
           role="presentation"
         >
-          <Image src={icons.calendarOutlined} alt="calendarOutlined" />
+          <Image src={icons.calendarOutlined} alt="Calendar" />
           <p className="subtle_medium text-blueGray">Scheduled Date</p>
         </div>
         <div
@@ -61,7 +66,7 @@ export const Filter: FC<IFilter> = ({ hideDialog }) => {
           onClick={() => handleSelectFilter(FILTERS_ENUM.PEOPLE)}
           role="presentation"
         >
-          <Image src={icons.people} alt="people" />
+          <Image src={icons.people} alt="People" />
           <p className="subtle_medium text-blueGray">People</p>
         </div>
         <div
@@ -71,7 +76,7 @@ export const Filter: FC<IFilter> = ({ hideDialog }) => {
           onClick={() => handleSelectFilter(FILTERS_ENUM.SERVICES)}
           role="presentation"
         >
-          <Image src={icons.dashboard} alt="dashboard" />
+          <Image src={icons.dashboard} alt="Dashboard" />
           <p className="subtle_medium text-blueGray">Services / Products</p>
         </div>
       </div>
@@ -96,6 +101,7 @@ export const Filter: FC<IFilter> = ({ hideDialog }) => {
             handleApplyFilter();
             hideDialog();
           }}
+          disabled={!enableFilterBtn}
         >
           Apply
         </button>

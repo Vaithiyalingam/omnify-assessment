@@ -1,7 +1,7 @@
 "use client";
+import React, { useRef, useState } from "react";
 import Image from "next/image";
 import { icons } from "../../utils/icons";
-import { useRef, useState } from "react";
 import Dialog from "../shared/Dialog";
 import { Filter } from "./Filter";
 import { useApplyFilter } from "../../store/useApplyFilter";
@@ -17,9 +17,12 @@ export const WaitlistActions = () => {
   });
   const specifiedAreaRef = useRef<HTMLDivElement>(null);
   const specifiedColumnAreaRef = useRef<HTMLDivElement>(null);
-  const { filtersArr, handleRemoveFilter } = useApplyFilter();
+  const { filtersArr, handleRemoveFilter, handleClearFilter } =
+    useApplyFilter();
 
+  // Function to show filter dialog and calculate position
   const showDialog = () => {
+    handleClearFilter();
     if (specifiedAreaRef.current) {
       const rect = specifiedAreaRef.current.getBoundingClientRect();
       setDialogPosition({
@@ -30,6 +33,7 @@ export const WaitlistActions = () => {
     }
   };
 
+  // Function to show edit column dialog and calculate position
   const showEditDialog = () => {
     if (specifiedColumnAreaRef.current) {
       const rect = specifiedColumnAreaRef.current.getBoundingClientRect();
@@ -42,13 +46,16 @@ export const WaitlistActions = () => {
     }
   };
 
+  // Function to hide edit column dialog
   const hideEditDialog = () => {
     setIsEditDialogVisible(false);
   };
 
+  // Function to hide filter dialog
   const hideDialog = () => {
     setIsDialogVisible(false);
   };
+
   return (
     <div className="md:flex flex-wrap items-center justify-between py-2 px-3">
       <div className="md:flex items-center gap-1.5 cursor-pointer">
@@ -56,36 +63,40 @@ export const WaitlistActions = () => {
           className="flex items-center gap-1.5 cursor-pointer py-2"
           ref={specifiedAreaRef}
           onClick={showDialog}
-          role="presentation"
+          role="button"
+          aria-label="Open Filter Dialog"
         >
           <Image src={icons.filter} alt="filter" />
           <p className="detail_medium text-blueGray">Add filter</p>
         </div>
+
+        {/* Applied Filters List */}
         {filtersArr.length > 0 && (
           <div className="flex items-center w-[80vw] md:max-w-[40vw] overflow-x-auto gap-1">
-            {filtersArr.map((item, key) => {
-              return (
+            {filtersArr.map((item, key) => (
+              <div
+                key={key}
+                className="flex items-center gap-2 border border-blueGray100 px-2 rounded-md py-1 relative"
+              >
+                <p className="subtle_medium text-slateGray whitespace-nowrap">
+                  {item}
+                </p>
                 <div
-                  className="flex items-center gap-2 border border-blueGray100 px-2 rounded-md py-1 relative"
-                  key={key}
+                  className="cursor-pointer ml-auto w-4 h-4"
+                  onClick={() => {
+                    handleRemoveFilter(item);
+                  }}
+                  role="button"
+                  aria-label={`Remove Filter: ${item}`}
                 >
-                  <p className="subtle_medium text-slateGray whitespace-nowrap">
-                    {item}
-                  </p>
-                  <div
-                    className="cursor-pointer ml-auto w-4 h-4"
-                    onClick={() => {
-                      handleRemoveFilter(item);
-                    }}
-                  >
-                    <Image src={icons.close} alt="close" />
-                  </div>
+                  <Image src={icons.close} alt="close" />
                 </div>
-              );
-            })}
+              </div>
+            ))}
           </div>
         )}
       </div>
+
       <div className="flex items-center gap-4">
         <div className="relative my-0.5">
           <input
@@ -97,22 +108,26 @@ export const WaitlistActions = () => {
             <Image src={icons.search} alt="search" />
           </div>
         </div>
+
         <div className="px-2.5 py-2">
           <Image src={icons.refresh} alt="refresh" />
         </div>
+
         <div
-          className="px-2.5 py-2"
+          className="px-2.5 py-2 cursor-pointer"
           ref={specifiedColumnAreaRef}
-          onClick={() => {
-            showEditDialog();
-          }}
+          onClick={showEditDialog}
+          role="button"
+          aria-label="Edit Columns"
         >
           <Image src={icons.columnsOutlined} alt="column outlined" />
         </div>
+
         <div className="px-2.5 py-2">
           <Image src={icons.download} alt="download" />
         </div>
       </div>
+
       <Dialog
         isVisible={isEditDialogVisible}
         position={editDialogPosition}
@@ -120,6 +135,7 @@ export const WaitlistActions = () => {
       >
         <EditColumn hideEditDialog={hideEditDialog} />
       </Dialog>
+
       <Dialog
         isVisible={isDialogVisible}
         position={dialogPosition}

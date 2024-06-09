@@ -10,6 +10,7 @@ import {
 } from "./atoms";
 
 export const useServices = () => {
+  // Atoms for selected services, service type, status type, and filters
   const [selectedServicesAt, setSelectedServicesAt] =
     useAtom(selectedServicesAtom);
   const [selectedServicesFilter, setSelectedServiceFilter] =
@@ -21,6 +22,7 @@ export const useServices = () => {
     selectedStatusTypeAtom
   );
 
+  // Local state to manage selected service type, status type, services, status array, modal states, service array, and search value
   const [selectedStatusType, setSelectedStatusType] = useState(
     initialStatusArr[0]
   );
@@ -35,7 +37,9 @@ export const useServices = () => {
     useState<ServiceType[]>(initialServiceArr);
   const [searchValue, setSearchValue] = useState("");
 
+  // Handle click on service type option
   const handleServiceTypeClick = (select: ServiceType) => {
+    // Update service array to mark the selected service type
     setServiceArr((prevDates) =>
       prevDates.map((service) =>
         service.id === select.id
@@ -44,6 +48,7 @@ export const useServices = () => {
       )
     );
 
+    // Set the selected service type
     const selectedService = serviceArr.find((ser) => ser.id === select.id);
     if (selectedService) {
       setSelectedServiceType(selectedService);
@@ -52,7 +57,9 @@ export const useServices = () => {
     setServiceOpen(false);
   };
 
+  // Handle click on status type option
   const handleStatusTypeClick = (select: ServiceType) => {
+    // Update status array to mark the selected status type
     setStatusArr((status) =>
       status.map((st) =>
         st.id === select.id
@@ -61,6 +68,7 @@ export const useServices = () => {
       )
     );
 
+    // Set the selected status type
     const selectedStatus = statusArr.find((stat) => stat.id === select.id);
     if (selectedStatus) {
       setSelectedStatusType(selectedStatus);
@@ -69,30 +77,36 @@ export const useServices = () => {
     setStatusOpen(false);
   };
 
+  // Handle input change in search box
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(event.target.value);
   };
 
+  // Handle select or deselect service
   const handleSelectService = (item: any) => {
     const itemIndex = selectedServices.findIndex(
       (selectedItem) => selectedItem.id === item.id
     );
 
     if (itemIndex !== -1) {
+      // Remove selected service
       const updatedSelectedItems = [...selectedServices];
       updatedSelectedItems.splice(itemIndex, 1);
       setSelectedServices(updatedSelectedItems);
       setSelectedServicesAt(updatedSelectedItems);
     } else {
+      // Add selected service
       setSelectedServices([item, ...selectedServices]);
       setSelectedServicesAt([item, ...selectedServices]);
     }
   };
 
+  // Check if a service is selected
   const isServiceSelected = (item: any) => {
     return selectedServices.some((selectedItem) => selectedItem.id === item.id);
   };
 
+  // Filter table data based on search input
   const filteredData = tableData
     .filter((item) =>
       item.service.toLowerCase().includes(searchValue.toLowerCase())
@@ -104,10 +118,12 @@ export const useServices = () => {
     new Set(filteredData.map((item) => item.service))
   ).map((service) => filteredData.find((item) => item.service === service));
 
+  // Clear search input
   const clearSearch = () => {
     setSearchValue("");
   };
 
+  // Clear selected services, service type, status type, and service filter
   const clearServices = () => {
     setSelectedServices([]);
     setSelectedServicesAt([]);

@@ -26,11 +26,13 @@ const DatePicker: React.FC<DatePickerProps> = ({
   minDate,
   maxDate,
 }) => {
+  // Initial state setup
   const initialMonth = minDate ? startOfMonth(minDate) : selectedDate;
   const [currentMonth, setCurrentMonth] = useState<Date>(initialMonth);
   const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
   const datePickerRef = useRef<HTMLDivElement>(null);
 
+  // Effect to handle click outside date picker
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -47,10 +49,12 @@ const DatePicker: React.FC<DatePickerProps> = ({
     };
   }, []);
 
+  // Effect to update current month when selectedDate changes
   useEffect(() => {
     setCurrentMonth(selectedDate);
   }, [selectedDate]);
 
+  // Render the header with navigation controls
   const renderHeader = () => {
     const isPrevMonthDisabled =
       minDate && isBefore(subMonths(currentMonth, 1), startOfMonth(minDate));
@@ -90,6 +94,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
     );
   };
 
+  // Render the days of the week (Su, Mo, Tu, etc.)
   const renderDaysOfWeek = () => {
     const daysOfWeek = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
     return (
@@ -103,6 +108,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
     );
   };
 
+  // Render the days of the current month
   const renderDays = () => {
     const monthStart = startOfMonth(currentMonth);
     const monthEnd = endOfMonth(monthStart);
@@ -153,6 +159,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
     return <div>{rows}</div>;
   };
 
+  // Handle date click event
   const onDateClick = (day: Date) => {
     onDateChange(day);
     setShowDatePicker(false);
@@ -166,12 +173,12 @@ const DatePicker: React.FC<DatePickerProps> = ({
           value={format(selectedDate, "yyyy-MM-dd")}
           readOnly
           onClick={() => setShowDatePicker(!showDatePicker)}
-          className={` pl-7 subtle text-datePickerText focus:outline-none ${
+          className={`pl-7 subtle text-datePickerText focus:outline-none ${
             showDatePicker ? "border-2" : "border"
           } border-slateGray p-2 rounded-lg datePickerInputWidth`}
         />
         <div className="absolute left-2 top-3">
-          <Image src={icons.calendarOutlined} alt="calenderOutlined" />
+          <Image src={icons.calendarOutlined} alt="calendarOutlined" />
         </div>
       </div>
       {showDatePicker && (

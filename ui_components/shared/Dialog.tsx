@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from "react";
-import { CSSTransition } from "react-transition-group";
 
 interface DialogProps {
   isVisible: boolean;
@@ -16,6 +15,7 @@ const Dialog: React.FC<DialogProps> = ({
 }) => {
   const dialogRef = useRef<HTMLDivElement>(null);
 
+  // Function to handle click outside the dialog
   const handleClickOutside = (event: MouseEvent) => {
     if (
       dialogRef.current &&
@@ -26,17 +26,21 @@ const Dialog: React.FC<DialogProps> = ({
   };
 
   useEffect(() => {
+    // Add event listener for clicks outside the dialog when it's visible
     if (isVisible) {
       document.addEventListener("mousedown", handleClickOutside);
     } else {
+      // Remove event listener when the dialog is not visible
       document.removeEventListener("mousedown", handleClickOutside);
     }
 
+    // Clean up the event listener when component unmounts or isVisible changes
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isVisible]);
 
+  // If dialog is not visible, do not render anything
   if (!isVisible) return null;
 
   return (
@@ -48,6 +52,8 @@ const Dialog: React.FC<DialogProps> = ({
         right: position.right && position.right,
       }}
       ref={dialogRef}
+      aria-modal="true"
+      aria-labelledby="dialog-title"
     >
       <div className="flex flex-col items-center">{children}</div>
     </div>

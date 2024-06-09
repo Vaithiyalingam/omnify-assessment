@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect } from "react";
 import { icons } from "../../utils/icons";
 import { SidebarList } from "./SidebarList";
 import { SidebarBottomSection } from "./SidebarBottomSection";
@@ -9,10 +9,12 @@ import { useSidebarOpen } from "../../store/useSidebarOpen";
 const SideBar = () => {
   const { sidebarOpen, setSidebarOpen } = useSidebarOpen();
 
+  // Function to toggle sidebar open/close
   const handleViewSidebar = useCallback(() => {
     setSidebarOpen((prev) => !prev);
   }, [setSidebarOpen]);
 
+  // Handle keyboard events to open/close sidebar using arrow keys
   const handleKeyDown = useCallback(
     (event: KeyboardEvent) => {
       const target = event.target as HTMLElement;
@@ -39,6 +41,7 @@ const SideBar = () => {
     };
   }, [handleKeyDown]);
 
+  // Animation styles for sidebar opening/closing
   const sidebarAnim = sidebarOpen
     ? "translate-x-0 opacity-100"
     : "-translate-x-[50vw] opacity-0 overflow-hidden";
@@ -61,11 +64,13 @@ const SideBar = () => {
               sidebarOpen ? "" : "ml-3 "
             } items-center`}
           >
+            {/* Frontdesk Logo */}
             <Image
               src={icons.frontdeskLogo}
               alt="Frontdesk logo"
               aria-label="Frontdesk logo"
             />
+            {/* Logo text animation */}
             <div
               className={`${sidebarAnim} flex items-center transition-all duration-300 ease`}
             >
@@ -80,6 +85,7 @@ const SideBar = () => {
               </p>
             </div>
           </div>
+          {/* Toggle sidebar button */}
           <div
             className="cursor-pointer"
             role="button"
@@ -94,6 +100,7 @@ const SideBar = () => {
             />
           </div>
         </div>
+        {/* Location and arrow section */}
         <div
           className={`flex  whitespace-nowrap items-center ${
             sidebarOpen ? "justify-between" : "justify-center"
@@ -108,6 +115,7 @@ const SideBar = () => {
           </div>
           <Image src={icons.arrowLeftRight} alt="Arrow left right" />
         </div>
+        {/* Time and date section */}
         <div className="mx-2">
           <div
             className={`h-auto w-full rounded-md bg-gradient-to-r from-blueGray100 to-sidebarBg p-[1px] shadow-md shadow-greenGray`}
@@ -142,10 +150,12 @@ const SideBar = () => {
           </div>
         </div>
 
+        {/* Sidebar list */}
         <div className="mt-6">
           <SidebarList isSidebarOpen={sidebarOpen} />
         </div>
       </div>
+      {/* Bottom section of the sidebar */}
       <SidebarBottomSection isSidebarOpen={sidebarOpen} />
     </div>
   );

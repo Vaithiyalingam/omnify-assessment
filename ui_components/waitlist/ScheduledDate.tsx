@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import Dropdown from "../shared/Dropdown";
 import { icons } from "../../utils/icons";
@@ -27,11 +27,14 @@ export const ScheduledDate: React.FC = () => {
         setIsOpen={setIsOpen}
       >
         <div className="">
-          {datesArr.map((item, ind) => (
+          {datesArr.map((item) => (
             <div
               key={item.id}
               className="flex items-center justify-between px-2 py-1.5 cursor-pointer"
               onClick={() => handleDateTypeClick(item)}
+              role="option"
+              aria-selected={item.selected}
+              aria-label={item.name}
             >
               <p className="subtle blueGray">{item.name}</p>
               {item.selected && (
@@ -41,7 +44,7 @@ export const ScheduledDate: React.FC = () => {
           ))}
         </div>
       </Dropdown>
-      <div className="grid grid-cols-2 gap-5 w-full ">
+      <div className="grid grid-cols-2 gap-5 w-full">
         <div className="col-span-1">
           <p className="detail_medium textblueGray my-2">From</p>
           <DatePicker
